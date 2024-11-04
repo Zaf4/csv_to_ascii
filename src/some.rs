@@ -1,5 +1,6 @@
-pub mod utils;
+pub mod some;
 
+pub mod some{
 pub struct CSV{
     csv:String, 
 }
@@ -122,4 +123,5 @@ impl<'a> Table<'a>{
         println!("Shape: {} x {} ", self.nrow(), self.ncol());
         println!("{}",self.to_acsii());
     }
+}
 }

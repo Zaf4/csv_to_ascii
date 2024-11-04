@@ -1,5 +1,5 @@
+use csv_to_ascii::some::CSV;
 use std::fs;
-use utils::{Table, CSV};
 
 /*
 fn create_csv()->String{
