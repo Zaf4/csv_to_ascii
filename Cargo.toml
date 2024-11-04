@@ -5,5 +5,12 @@ edition = "2021"
 
 [dependencies]
 
+[profile.dev]
+opt-level = 3  # Moderate optimization for faster builds while still improving performance
+debug = true   # Include debug information
+split-debuginfo = 'unpacked'  # Controls how debug info is stored (unpacked can be helpful for faster debugging)
+
 [profile.release]
 opt-level = 3
+lto = true        
+codegen-units = 1 # Reduce codegen units for better optimization at the cost of longer compile time

@@ -7,6 +7,8 @@ pub mod some {
         table: Vec<Vec<&'a str>>,
     }
 
+
+
     impl CSV {
         pub fn new(csv: String) -> CSV {
             CSV { csv }
@@ -115,26 +117,39 @@ pub mod some {
             println!("{}", self.to_acsii());
         }
     }
+
+    pub fn read_csv(filename: &str) -> CSV {
+        let contents = std::fs::read_to_string(filename).unwrap();
+        let table = CSV::new(contents);
+        table
+    }
 }
 pub use some::{Table, CSV};
 
-fn create_csv()->String{
-    let mut csv = String::new();
-    csv.push_str("title1,title_2,title_02\n");
-    csv.push_str("1121,12,3\n");
-    csv.push_str("4,5,6\n");
-    csv
-}
-
 #[cfg(test)]
 mod tests {
+    use some::read_csv;
+
     use super::*;
 
     #[test]
     fn test_csv_to_ascii() {
-        let csv = CSV::new(create_csv());
-        let table = csv.to_table();
+        let mut csv = String::new();
+        csv.push_str("title1,title_2,title_02\n");
+        csv.push_str("1121,12,3\n");
+        csv.push_str("4,5,6\n");
+        let file  = CSV::new(csv);
+        let table = file.to_table();
         assert_eq!(table.nrow(), 3);
         assert_eq!(table.ncol(), 3);
     }
+
+    #[test]
+    fn file_printing() {
+        let file = read_csv("starbucks.csv");
+        let table = file.to_table();
+        table.show();
+    }
+
 }
+
